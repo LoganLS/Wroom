@@ -27,3 +27,34 @@ module.exports.getListeEcurie = function (callback) {
          }
       });
 };
+
+module.exports.getPiloteNumEcurie=function(num,callback){
+    // connection a la base
+    db.getConnection(function(err, connexion){
+        if(!err){
+            // s'il n'y a pas d'erreur de connexion
+            // execution de la requete SQL
+            let sql="SELECT PILNOM, PILPRENOM FROM pilote WHERE ECUNUM = " + num + " ";
+            connexion.query(sql, callback);
+
+            // la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
+
+module.exports.getInfosEcuries=function(callback){
+    // connection a la base
+    db.getConnection(function(err, connexion){
+        if(!err){
+            // s'il n'y a pas d'erreur de connexion
+            // execution de la requete SQL
+            let sql="SELECT e.ECUNOM, e.ECUNOMDIR, e.ECUADRSIEGE, pa.PAYNOM, fp.FPNOM FROM ecurie e, pays p, fourn_pneu fp WHERE" +
+                " e.PAYNUM = p.PAYNUM AND e.FPNUM = fp.FPNUM";
+            connexion.query(sql, callback);
+
+            // la connexion retourne dans le pool
+            connexion.release();
+        }
+    });
+};
