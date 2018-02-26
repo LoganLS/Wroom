@@ -1,0 +1,23 @@
+<table class="tabpayscir">
+	 {{#each listeCircuit}}
+		<tr><td>
+            <a href="{{this.cirnum}}"><u>{{this.cirnom}}</u> </a>
+            <img src="/image/pays/{{this.payadrdrap}}" width="20" alt="drapeau du pays" />
+		</td></tr>
+	{{/each}}
+</table>
+
+{{#each detCircuit}}
+    <img src="/image/circuit/{{this.ciradresseimage}}" alt="image circuit"/>
+    <b>Nom : </b>{{this.cirnom}}
+    <br/>
+    <b>Longueur : </b>{{this.cirlongueur}} m
+    <br/>
+    <b>Nombre de spectateurs : </b>{{this.cirnbspectateurs}}
+    <br/>
+    <b>Pays : </b>{{this.paynom}}
+        
+
+    <p>{{this.cirtext}}</p>
+{{/each}}
+<br class="myboth" />
