@@ -107,6 +107,7 @@ module.exports.infosPilote=function(request,response){
 
 module.exports.menuPilote = function(request, response){
 	response.title = 'Menu des Pilotes';
+    response.css="pilote";
 	model.getMenuPilote(function(err,result){
 		if (err) {
             // gestion de l'erreur
@@ -115,6 +116,34 @@ module.exports.menuPilote = function(request, response){
         }
         response.menuPilote = result;	
         console.log(result);
-        response.render('repertoirePilotes', response);
+        response.render('menuPilotes', response);
 	});
+ }
+
+module.exports.ajouterPilote = function(request, response){
+	response.title = 'Ajouter un pilote';
+    response.css="pilote";
+    async.parallel([
+        function(callback){
+            model.getAllNationalite(function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            model.getAllEcurie(function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback1
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.listeNationalite=result[0];
+            response.listeEcurie=result[1];
+            response.render('ajouterPilote',response);
+        }
+    );//fin async
  }

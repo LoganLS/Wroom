@@ -63,3 +63,9 @@
 .listerPilotes{
     display:inline-block;
 }
+
+.tabpayscir2{
+    float:right;
+    padding:5px 70px 5px 5px;
+ 	border:1px solid black;
+}

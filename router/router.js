@@ -24,6 +24,10 @@ module.exports = function(app){
 
  //Résultats
    app.get('/resultats', ResultatController.ListerResultat);
+    
+    
+    app.get('/menuPilotes',PiloteController.menuPilote);
+    app.get('/menuPilotes/ajouterPilote',PiloteController.ajouterPilote);
 
 
 // tout le reste

@@ -1,0 +1,22 @@
+table{
+    border:1px solid black;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid black;
+}
+
+#bouton{
+    padding:6px 10px 6px 10px;
+    display:block;
+    margin:auto;
+    color:#ffff;
+    background-color: firebrick;
+    border:1px solid black;
+    font:Bold 18px Arial;
+}
+
+input,textarea{
+    border-radius: 10px;
+}

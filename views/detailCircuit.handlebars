@@ -1,4 +1,4 @@
-<table class="tabpayscir">
+<table class="tabpayscir2">
 	 {{#each listeCircuit}}
 		<tr><td>
             <a href="{{this.cirnum}}"><u>{{this.cirnom}}</u> </a>
@@ -8,16 +8,14 @@
 </table>
 
 {{#each detCircuit}}
-    <img src="/image/circuit/{{this.ciradresseimage}}" alt="image circuit"/>
-    <b>Nom : </b>{{this.cirnom}}
-    <br/>
-    <b>Longueur : </b>{{this.cirlongueur}} m
-    <br/>
-    <b>Nombre de spectateurs : </b>{{this.cirnbspectateurs}}
-    <br/>
-    <b>Pays : </b>{{this.paynom}}
-        
+    <img style="float:left" src="/image/circuit/{{this.ciradresseimage}}" width="200" alt="image circuit"/>
+    <table style="display:table-cell">
+        <tr><td><b>Nom : </b>{{this.cirnom}}</td></tr>
+        <tr><td><b>Longueur : </b>{{this.cirlongueur}} m</td></tr>
+        <tr><td><b>Nombre de spectateurs : </b>{{this.cirnbspectateurs}}</td></tr>
+        <tr><td><b>Pays : </b>{{this.paynom}}</td></tr>
+    </table>
 
-    <p>{{this.cirtext}}</p>
+    <p style="float:left">{{this.cirtext}}</p>
 {{/each}}
 <br class="myboth" />

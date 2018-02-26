@@ -104,7 +104,7 @@ module.exports.getStableofOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="SELECT e.ecunom FROM ecurie e INNER JOIN pilote p ";
-			sql+="WHERE p.paynum=e.paynum AND e.ecunum=p.ecunum AND p.pilnum="+id;
+			sql+="WHERE e.ecunum=p.ecunum AND p.pilnum="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
 			connexion.release();
@@ -139,6 +139,30 @@ module.exports.addPilote=function(numpays,nom,prenom,datenaiss,points,poids,tail
 		if(!err){
 			let sql="INSERT INTO pilote (paynum,pilnom,pilprenom,pildatenais,pilpigiste,pilpoints,pilpoids,piltaille,piltexte,ecunum) ";
 			sql+="VALUES("+numpays+","+nom+","+prenom+","+datenaiss+",0,"+points+","+poids+","+taille+","+description+","+numecu+")";
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.getAllNationalite=function(callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="SELECT paynum,paynat FROM pays ";
+			sql+="ORDER BY paynat";
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};
+
+module.exports.getAllEcurie=function(callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="SELECT ecunum,ecunom FROM ecurie ";
+			sql+="ORDER BY ecunom";
 			console.log(sql);
 			connexion.query(sql,callback)
 			connexion.release();

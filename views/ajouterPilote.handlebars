@@ -1,0 +1,26 @@
+<center><h1>Ajouter un Pilote</h1></center>
+
+<form>
+    Prénom <input type="text" name="prenom" required/><br/>
+    Nom <input type="text" name="nom" required/><br/>
+    Date de naissance <input type="text" name="jour" required/> / <input type="text" name="mois" required/> / <input type="text" name="annee" required/><br/>
+    Nationalité <select>
+                    {{#each listeNationalite}}
+                        <option name="{{this.paynum}}">{{this.paynat}}</option>
+                    {{/each}}
+                </select><br/>
+    Ecurie <select>
+                {{#each listeEcurie}}
+                    <option name="{{this.ecunum}}">{{this.ecunom}}</option>
+                {{/each}}
+
+            </select><br/>
+    Points <input type="text" name="points" required/> pts<br/>
+    Poids <input type="text" name="poids" required/> kg<br/>
+    Taille <input type="text" name="taille" required/> cm<br/>
+    Description <textarea></textarea><br/>
+    <br/>
+    <input type="submit" name="ajouter" value="Ajouter" id="bouton"/>
+</form>
+
+<br class="myboth" />

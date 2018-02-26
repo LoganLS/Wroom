@@ -35,14 +35,12 @@
             </tr>
             <tr>
                 <td>
-                    {{#if ecuriePilote}}
-                        <b>Ecurie : </b>
-                        {{#each ecuriePilote}}
-                            {{this.ecunom}}
-                        {{else}}
-                            Pas d'écurie cette année
-                        {{/each}}
-                    {{/if}}
+                    <b>Ecurie : </b>
+                    {{#each ecuriePilote}}
+                        {{this.ecunom}}
+                    {{else}}
+                        Pas d'écurie cette année
+                    {{/each}}
                 </td>
             </tr>
         </table>
