@@ -6,6 +6,7 @@
         <a href="/repertoirePilote/{{this.premiere_lettre}}">{{this.premiere_lettre}}</a>
     {{/each}}
     </center>
+    <br/>
     <div style="display:inline">
         <img style="float:left" src="/image/pilote/{{detailPilote.phoadresse}}" width="75" alt="pilote"/>
     </div>
@@ -35,8 +36,9 @@
             <tr>
                 <td>
                     {{#if ecuriePilote}}
+                        <b>Ecurie : </b>
                         {{#each ecuriePilote}}
-                            <b>Ecurie : </b>{{this.ecunom}}
+                            {{this.ecunom}}
                         {{else}}
                             Pas d'écurie cette année
                         {{/each}}

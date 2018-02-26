@@ -19,7 +19,7 @@ module.exports.Repertoire = function(request, response){
 module.exports.listeNom=function(request,response){
     response.title='Liste Pilotes';
 	var lettre=request.params.lettreNom;
-	model.getListePiloteParNom(lettre,function(err,result){
+	/*model.getListePiloteParNom(lettre,function(err,result){
 	   if(err){
            console.log(err);
            return;
@@ -27,7 +27,32 @@ module.exports.listeNom=function(request,response){
         response.listePiloteParNom=result;
         console.log(result);
         response.render('listePiloteLettre',response);
-    });
+    });*/
+    
+    async.parallel([
+        function(callback){
+            model.getPremiereLettreNom(function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            model.getListePiloteParNom(lettre,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback1
+        
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.listePremiereLettreNom=result[0];
+            response.listePiloteParNom=result[1];
+            response.render('listePiloteLettre',response);
+        }
+    );//fin async
 }
 
 module.exports.infosPilote=function(request,response){

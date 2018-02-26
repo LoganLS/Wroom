@@ -10,14 +10,14 @@ module.exports.ListerCircuit = function(request, response){
             console.log(err);
             return;
         }
-        response.listeCircuit = result;	
+        response.listeCircuit=result;	
         console.log(result);
         response.render('listerCircuit', response);
 	});
 }
 
 module.exports.detailCircuit = function(request, response){
-    response.title = 'Liste des circuits';    
+    response.title = 'Détail circuit';    
     var num=request.params.numCircuit;
 	/*model.getInfosCircuit(num,function(err,result){
 		if (err) {
@@ -29,7 +29,6 @@ module.exports.detailCircuit = function(request, response){
         console.log(result);
         response.render('detailCircuit', response);
 	});*/
-    
     async.parallel([
         function(callback){
             model.getInfosCircuit(num,function(err,result){
@@ -56,7 +55,7 @@ module.exports.detailCircuit = function(request, response){
     );//fin async
 }
 
-module.exports.ListerCircuit = function(request, response){
+module.exports.MenuCircuit = function(request, response){
     response.title = 'Menu des circuits';    
 	model.getMenuCircuit(function(err,result){
 		if (err) {
