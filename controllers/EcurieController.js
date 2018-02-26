@@ -14,3 +14,33 @@ module.exports.ListerEcurie = function(request, response){
         response.render('listerEcurie', response);
 	});
 }
+
+module.exports.listeNom=function(request,response){
+    response.title='Liste Pilotes';
+    var lettre=request.params.lettreNom;
+
+    async.parallel([
+            function(callback){
+                model.getPremiereLettreNom(function(err,result){
+                    callback(null,result);
+                });
+            }, //fin callback0
+
+            function(callback){
+                model.getListePiloteParNom(lettre,function(err,result){
+                    callback(null,result);
+                });
+            }, //fin callback1
+
+        ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.listePremiereLettreNom=result[0];
+            response.listePiloteParNom=result[1];
+            response.render('listePiloteLettre',response);
+        }
+    );//fin async
+}
