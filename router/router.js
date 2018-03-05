@@ -24,20 +24,7 @@ module.exports = function(app){
 
  //Résultats
    app.get('/resultats', ResultatController.ListerResultat);
-    
-    
-    app.get('/menuPilotes',PiloteController.menuPilote);
-    app.get('/menuPilotes/ajouterPilote',PiloteController.pageAjouterPilote);
-    app.get('/menuPilotes/ajouterPilote/ajout',PiloteController.ajouterPilote);
-    app.get('/menuPilotes/modifierPilote/:numPilote',PiloteController.pageModifierPilote);
-    app.get('/menuPilotes/supprimerPilote/:numPilote',PiloteController.pageSupprimerPilote);
-    
-    app.get('/menuCircuits',CircuitController.menuCircuit);
-    app.get('/menuCircuits/ajouterCircuit',CircuitController.pageAjouterCircuit);
-    app.get('/menuCircuits/modifierCircuit/:numCircuit',CircuitController.pageModifierCircuit);
-    //app.get('/menuCircuits/supprimerCircuit/:numCircuit',CircuitController.pageSupprimerCircuit);
-
-
+   
 // tout le reste
   app.get('*', HomeController.Index);
   app.post('*', HomeController.Index);

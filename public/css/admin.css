@@ -14,9 +14,9 @@ th,.ligne{
     color:#ffff;
     background-color: firebrick;
     border:1px solid black;
-    font:Bold 18px Arial;
+    font:bold 18px Arial;
 }
 
 input,textarea{
-    border-radius: 10px;
+    border-radius: 5px;
 }

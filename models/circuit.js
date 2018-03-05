@@ -25,7 +25,7 @@ module.exports.getListeCircuit = function (callback) {
 module.exports.getInfosCircuit = function (num,callback) {
 	db.getConnection(function(err, connexion){
         if(!err){
-			let sql ="SELECT cirnom,cirlongueur, cirnbspectateurs, ciradresseimage,cirtext,paynom FROM circuit c INNER JOIN pays p ";
+			let sql ="SELECT cirnom,cirlongueur, cirnbspectateurs, ciradresseimage,cirtext,p.paynum,paynom FROM circuit c INNER JOIN pays p ";
 			sql+= "ON p.paynum=c.paynum ";
 			sql+="WHERE cirnum="+num;
             connexion.query(sql, callback);
@@ -46,7 +46,7 @@ module.exports.getMenuCircuit = function (callback) {
       });
 };
 
-module.exports.getPays = function (callback) {
+module.exports.getAllPays = function (callback) {
 	db.getConnection(function(err, connexion){
         if(!err){
 			let sql ="SELECT paynum,paynom FROM pays ";

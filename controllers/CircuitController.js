@@ -89,14 +89,28 @@ module.exports.pageModifierCircuit = function(request, response){
     response.title = 'Modifier un circuit';    
     response.css="admin";
     var num=request.params.numCircuit;
-	model.getInfosCircuit(num,function(err,result){
-		if (err) {
-            // gestion de l'erreur
-            console.log(err);
-            return;
+    
+    async.parallel([
+        function(callback){
+            model.getInfosCircuit(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            model.getAllPays(function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback1
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.infosCircuit=result[0][0];
+            response.listePays=result[1];
+            response.render('modifierCircuit',response);
         }
-        response.infosCircuit = result;	
-        console.log(result);
-        response.render('modifierCircuit', response);
-	});
+    );//fin async
 }

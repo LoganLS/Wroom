@@ -52,7 +52,7 @@ module.exports.getListePiloteParNom=function(lettre,callback){
 module.exports.getInformationsOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p3.phoadresse FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
+			let sql="SELECT p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p2.paynum,p3.phoadresse FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
 			sql+="WHERE p.paynum=p2.paynum AND p.pilnum=p3.pilnum AND p3.phonum=1 AND p.pilnum="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
@@ -103,7 +103,7 @@ module.exports.getAllSponsorsOfOnePilote=function(id,callback){
 module.exports.getStableofOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT e.ecunom FROM ecurie e INNER JOIN pilote p ";
+			let sql="SELECT e.ecunum,e.ecunom FROM ecurie e INNER JOIN pilote p ";
 			sql+="WHERE e.ecunum=p.ecunum AND p.pilnum="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
@@ -134,13 +134,25 @@ module.exports.getMenuPilote=function(callback){
       });
 };
 
-module.exports.addPilote=function(numpays,nom,prenom,datenaiss,points,poids,taille,description,numecu,callback){
+/*module.exports.ajouterPilote=function(numpays,nom,prenom,datenaiss,points,poids,taille,description,numecu,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
 			let sql="INSERT INTO pilote (paynum,pilnom,pilprenom,pildatenais,pilpigiste,pilpoints,pilpoids,piltaille,piltexte,ecunum) ";
 			sql+="VALUES("+numpays+","+nom+","+prenom+","+datenaiss+",0,"+points+","+poids+","+taille+","+description+","+numecu+")";
 			console.log(sql);
 			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+};*/
+
+module.exports.ajouterPilote=function(values,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="INSERT INTO pilote (paynum,pilnom,pilprenom,pildatenais,pilpigiste,pilpoints,pilpoids,piltaille,piltexte,ecunum) ";
+			sql+="VALUES("+values+")";
+			console.log(sql);
+			//connexion.query(sql,callback)
 			connexion.release();
 		}
 	});

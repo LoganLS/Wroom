@@ -207,7 +207,7 @@ module.exports.pageSupprimerPilote = function(request, response){
  }
 
 module.exports.ajouterPilote = function(request, response){
-	response.title = 'Ajouter un pilote';
+	response.title = 'Pilote ajouté';
     response.css="admin";
     
     var post={
@@ -223,6 +223,8 @@ module.exports.ajouterPilote = function(request, response){
         taille:req.body.taille,
         description:req.body.description
     }
+    
+    console.log(post);
     
     model.ajouterPilote(post,function(err,result){
 		if(err){
