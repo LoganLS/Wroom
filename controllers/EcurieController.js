@@ -1,10 +1,10 @@
 let model = require('../models/ecurie.js');
-
+var async=require('async');
    // //////////////////////// L I S T E R  E C U R I E S
 
 module.exports.ListerEcurie = function(request, response){
    response.title = 'Liste des écuries';
-    model.getListeEcurie( function (err, result) {
+    model.getListeEcurie(function (err, result) {
         if (err) {
             // gestion de l'erreur
             console.log(err);
@@ -15,22 +15,27 @@ module.exports.ListerEcurie = function(request, response){
 	});
 }
 
-module.exports.listeNom=function(request,response){
-    response.title='Liste Pilotes';
-    var lettre=request.params.lettreNom;
+module.exports.DetailEcurie = function(request,response){
+    response.title = 'Détail ecurie';
+    var num = request.params.numEcurie;
 
     async.parallel([
             function(callback){
-                model.getPremiereLettreNom(function(err,result){
+                model.getListeEcurie(function (err, result) {
                     callback(null,result);
                 });
             }, //fin callback0
 
             function(callback){
-                model.getListePiloteParNom(lettre,function(err,result){
+                model.getInfosEcuries(num, function(err,result){
                     callback(null,result);
                 });
             }, //fin callback1
+            function(callback){
+                model.getPiloteNumEcurie(num, function(err,result){
+                    callback(null,result);
+                });
+            }, //fin callback2
 
         ],
         function(err,result){
@@ -38,9 +43,11 @@ module.exports.listeNom=function(request,response){
                 console.log(err);
                 return;
             }
-            response.listePremiereLettreNom=result[0];
-            response.listePiloteParNom=result[1];
-            response.render('listePiloteLettre',response);
+            response.listeEcurie= result[0];
+            response.infosEcurie = result[1][0];
+            response.infosPilotes = result[2];
+            console.log(result[2]);
+            response.render('detailEcurie',response);
         }
     );//fin async
 }
