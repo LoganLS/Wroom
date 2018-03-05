@@ -1,9 +1,9 @@
-table{
+#tableMenu{
     border:1px solid black;
     border-collapse:collapse;
 }
 
-th,td{
+th,.ligne{
     border:1px solid black;
 }
 

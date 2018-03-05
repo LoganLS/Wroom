@@ -57,7 +57,7 @@ module.exports.listeNom=function(request,response){
 
 module.exports.infosPilote=function(request,response){
     response.title='Détail Pilote';
-    var id=request.params.idPilote;
+    var num=request.params.numPilote;
     
     async.parallel([
         function(callback){
@@ -67,25 +67,25 @@ module.exports.infosPilote=function(request,response){
         }, //fin callback0
         
         function(callback){
-            model.getInformationsOfOnePilote(id,function(err,result){
+            model.getInformationsOfOnePilote(num,function(err,result){
                callback(null,result);
             });
         }, //fin callback1
         
         function(callback){
-            model.getAllSponsorsOfOnePilote(id,function(err,result){
+            model.getAllSponsorsOfOnePilote(num,function(err,result){
                callback(null,result);
             });
         }, //fin callback2
     
         function(callback){
-            model.getAllPhotosOfOnePilote(id,function(err,result2){
+            model.getAllPhotosOfOnePilote(num,function(err,result2){
                callback(null,result2);
             });
         }, //fin callback3
         
         function(callback){
-            model.getStableofOnePilote(id,function(err,result2){
+            model.getStableofOnePilote(num,function(err,result2){
                callback(null,result2);
             });
         }, //fin callback4
@@ -107,7 +107,7 @@ module.exports.infosPilote=function(request,response){
 
 module.exports.menuPilote = function(request, response){
 	response.title = 'Menu des Pilotes';
-    response.css="pilote";
+    response.css="admin";
 	model.getMenuPilote(function(err,result){
 		if (err) {
             // gestion de l'erreur
@@ -120,9 +120,9 @@ module.exports.menuPilote = function(request, response){
 	});
  }
 
-module.exports.ajouterPilote = function(request, response){
+module.exports.pageAjouterPilote = function(request, response){
 	response.title = 'Ajouter un pilote';
-    response.css="pilote";
+    response.css="admin";
     async.parallel([
         function(callback){
             model.getAllNationalite(function(err,result){
@@ -146,4 +146,91 @@ module.exports.ajouterPilote = function(request, response){
             response.render('ajouterPilote',response);
         }
     );//fin async
+ }
+
+module.exports.pageModifierPilote = function(request, response){
+	response.title = 'Modifier un pilote';
+    response.css="admin";
+    var num=request.params.numPilote;
+    async.parallel([
+        function(callback){
+            model.getInformationsOfOnePilote(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback0
+        
+        function(callback){
+            model.getStableofOnePilote(num,function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback1
+        
+        function(callback){
+            model.getAllNationalite(function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback2
+        
+        function(callback){
+            model.getAllEcurie(function(err,result){
+               callback(null,result);
+            });
+        }, //fin callback3
+    ],
+        function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.infosPilote=result[0][0];
+            response.ecurie=result[1][0];
+            response.listeNationalite=result[2];
+            response.listeEcurie=result[3];
+            response.render('modifierPilote',response);
+        }
+    );//fin async
+ }
+
+module.exports.pageSupprimerPilote = function(request, response){
+	response.title = 'Ajouter un pilote';
+    response.css="admin";
+    var num=request.params.numPilote;
+    
+	model.supprimerPilote(num,function(err,result){
+		if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.render('supprimerPilote', response);
+	});
+ }
+
+module.exports.ajouterPilote = function(request, response){
+	response.title = 'Ajouter un pilote';
+    response.css="admin";
+    
+    var post={
+        prenom:req.body.prenom,
+        nom:req.body.nom,
+        jour:req.body.jour,
+        mois:req.bpdy.mois,
+        annee:req.body.annee,
+        nationalite:req.body.nationalite,
+        ecurie:req.body.ecurie,
+        points:req.body.points,
+        poids:req.body.poids,
+        taille:req.body.taille,
+        description:req.body.description
+    }
+    
+    model.ajouterPilote(post,function(err,result){
+		if(err){
+            console.log(err);
+            return;
+        }
+        response.ajouterPilote=result;	
+        console.log(result);
+        response.render('ajout',response);
+	});
  }

@@ -52,7 +52,7 @@ module.exports.getListePiloteParNom=function(lettre,callback){
 module.exports.getInformationsOfOnePilote=function(id,callback){
 	db.getConnection(function(err,connexion){
 		if(!err){
-			let sql="SELECT p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p2.paynat,p3.phoadresse FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
+			let sql="SELECT p.pilnom,p.pilprenom,p.pildatenais,p.pilpoids,p.piltaille,p.piltexte,p.pilpoints,p2.paynat,p3.phoadresse FROM pilote p INNER JOIN pays p2 INNER JOIN photo p3 ";
 			sql+="WHERE p.paynum=p2.paynum AND p.pilnum=p3.pilnum AND p3.phonum=1 AND p.pilnum="+id;
 			console.log(sql);
 			connexion.query(sql,callback);
@@ -169,3 +169,18 @@ module.exports.getAllEcurie=function(callback){
 		}
 	});
 };
+
+module.exports.supprimerPilote=function(num,callback){
+	db.getConnection(function(err,connexion){
+		if(!err){
+			let sql="DELETE FROM essais WHERE pilnum="+num;
+			sql+=" DELETE FROM sponsorise WHERE pilnum="+num;
+			sql+=" DELETE FROM photo WHERE pilnum="+num;
+			sql+=" DELETE FROM course WHERE pilnum="+num;
+			sql+=" DELETE FROM pilote WHERE pilnum="+num;
+			console.log(sql);
+			connexion.query(sql,callback)
+			connexion.release();
+		}
+	});
+}
