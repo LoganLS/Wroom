@@ -21,6 +21,7 @@ module.exports = function(app){
 
 // Ecuries
    app.get('/ecuries', EcurieController.ListerEcurie);
+    app.get('/detailEcurie/:numEcurie', EcurieController.DetailEcurie);
 
  //Résultats
    app.get('/resultats', ResultatController.ListerResultat);
