@@ -13,7 +13,7 @@ module.exports = function(app){
 // pilotes
     app.get('/repertoirePilote', PiloteController.Repertoire);
 	app.get('/repertoirePilote/:lettreNom', PiloteController.listeNom);
-    app.get('/repertoirePilote/detailPilote/:idPilote', PiloteController.infosPilote);
+    app.get('/repertoirePilote/detailPilote/:numPilote', PiloteController.infosPilote);
 
  // circuits
    app.get('/circuits', CircuitController.ListerCircuit);
@@ -28,7 +28,15 @@ module.exports = function(app){
     
     
     app.get('/menuPilotes',PiloteController.menuPilote);
-    app.get('/menuPilotes/ajouterPilote',PiloteController.ajouterPilote);
+    app.get('/menuPilotes/ajouterPilote',PiloteController.pageAjouterPilote);
+    app.get('/menuPilotes/ajouterPilote/ajout',PiloteController.ajouterPilote);
+    app.get('/menuPilotes/modifierPilote/:numPilote',PiloteController.pageModifierPilote);
+    app.get('/menuPilotes/supprimerPilote/:numPilote',PiloteController.pageSupprimerPilote);
+    
+    app.get('/menuCircuits',CircuitController.menuCircuit);
+    app.get('/menuCircuits/ajouterCircuit',CircuitController.pageAjouterCircuit);
+    app.get('/menuCircuits/modifierCircuit/:numCircuit',CircuitController.pageModifierCircuit);
+    //app.get('/menuCircuits/supprimerCircuit/:numCircuit',CircuitController.pageSupprimerCircuit);
 
 
 // tout le reste

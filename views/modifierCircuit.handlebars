@@ -1,0 +1,32 @@
+<center><h1>Modifier un circuit</h1></center>
+<form method="get">
+    <table> 
+        {{#each infosCircuit}}
+            <tr><td>Nom</td><td><input type="text" name="nom" value="{{this.cirnom}}" required/></td></tr>
+            <tr><td>Longueur</td><td><input type="text" name="longueur" value="{{this.cirlongueur}}" required/> m</td></tr>
+            <tr><td>Pays</td>
+                <td> 
+                    <select name="pays">
+                        {{#each listePays}}
+                            <option name="{{this.paynum}}">{{this.paynom}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+            </tr>
+            <tr><td>Image</td>
+                <td>
+                    <input type="file" required/>{{this.ciradresseimage}}
+                </td>
+            </tr>
+            <tr><td>Nombre de spectateurs</td>
+                <td>
+                    <input type="text" value="{{this.cirnbspectateurs}}" required/> personnes
+                </td>
+            </tr>
+            <tr><td>Description</td><td><textarea name="description" cols="75" rows="5" required>{{this.cirtext}}</textarea></td></tr>
+        {{/each}}
+    </table>
+    
+    <br/><br/>
+    <input type="submit" name="ajouter" value="Ajouter" id="bouton"/>
+</form>

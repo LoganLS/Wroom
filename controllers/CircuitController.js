@@ -55,8 +55,9 @@ module.exports.detailCircuit = function(request, response){
     );//fin async
 }
 
-module.exports.MenuCircuit = function(request, response){
+module.exports.menuCircuit = function(request, response){
     response.title = 'Menu des circuits';    
+    response.css="admin";
 	model.getMenuCircuit(function(err,result){
 		if (err) {
             // gestion de l'erreur
@@ -65,6 +66,37 @@ module.exports.MenuCircuit = function(request, response){
         }
         response.menuCircuit = result;	
         console.log(result);
-        response.render('listerCircuit', response);
+        response.render('menuCircuits', response);
+	});
+}
+
+module.exports.pageAjouterCircuit = function(request, response){
+    response.title = 'Ajouter un circuit';    
+    response.css="admin";
+	model.getPays(function(err,result){
+		if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.listePays = result;	
+        console.log(result);
+        response.render('ajouterCircuit', response);
+	});
+}
+
+module.exports.pageModifierCircuit = function(request, response){
+    response.title = 'Modifier un circuit';    
+    response.css="admin";
+    var num=request.params.numCircuit;
+	model.getInfosCircuit(num,function(err,result){
+		if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.infosCircuit = result;	
+        console.log(result);
+        response.render('modifierCircuit', response);
 	});
 }
